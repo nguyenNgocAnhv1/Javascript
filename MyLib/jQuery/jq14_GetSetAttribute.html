@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Jquery</h1>
+    <input type="text" placeholder="Insert data">
+    <button class="btn1">Show type</button>
+    <button class="btn2">Change type</button>
+    <span></span>
+</body>
+
+</html>
+<script>
+    $(".btn1").click(function () {
+        var text = $("input").attr("type");
+        alert(text)
+    }) 
+    $(".btn2").click(function () {
+        $("input").attr("type","button");
+        
+    }) 
+</script>

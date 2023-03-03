@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <button class="in">Fade-In</button>
+    <button class="out">Fade-Out</button>
+    <button class="to">Fade-To - Opacity Lever</button>
+    <button class="toggle">Toggle</button>
+    
+    <h1>Jquery</h1>
+</body>
+
+</html>
+<script>
+    $(".in").click(function(){
+       $("h1").fadeIn("1000") 
+    })
+    $(".out").click(function(){
+       $("h1").fadeOut("1000") 
+    })
+    $(".to").click(function(){
+       $("h1").fadeTo("1000",0.5) 
+    })
+    $(".toggle").click(function(){
+       $("h1").fadeToggle("1000") 
+    })
+    
+</script>

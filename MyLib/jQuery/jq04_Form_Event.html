@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+        .txt_red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Jquery</h1>
+    <form action="">
+        <select name="" id="">
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="js">JS</option>
+        </select>
+        <input type="text" placeholder="Click to change color">
+        <input type="submit" value="Submit">
+        <div id="result"></div>
+    </form>
+</body>
+
+</html>
+<script>
+    $("select").change(function () {
+        alert($(this).find(":selected").val())
+    })
+    $("input").focus(function () {
+        $(this).addClass("txt_red")
+    })
+    $("input").blur(function () {
+        $(this).removeClass("txt_red")
+    })
+    $("form").submit(function(e){
+        var regex = /^[a-zA-Z]+$/;
+        var currentValue = $("input").val();
+        console.log(e)
+        if( "a" != currentValue){
+            alert("Nhập a")
+        e.preventDefault(true)
+            
+        }
+
+       
+    })
+</script>

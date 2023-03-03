@@ -1,0 +1,30 @@
+{
+  "name": "resizedrag",
+  "version": "1.0.4",
+  "description": "Tiny javascript library to make DOM elements movable & resizable",
+  "main": "resizedrag.min.js",
+  "scripts": {
+    "build": "uglifyjs resizedrag.js -o resizedrag.min.js -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurugappanVR/resizedrag.js.git"
+  },
+  "keywords": [
+    "resize",
+    "draggable",
+    "resizable",
+    "drag",
+    "drag-and-drop",
+    "dom-manipulation"
+  ],
+  "author": "Murugappan.VR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MurugappanVR/resizedrag.js/issues"
+  },
+  "homepage": "https://github.com/MurugappanVR/resizedrag.js#readme",
+  "devDependencies": {
+    "uglify-js": "^3.13.9"
+  }
+}

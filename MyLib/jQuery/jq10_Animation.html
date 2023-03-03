@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+<style>
+    .box {
+        height: 300px;
+        width: 300px;
+        background: red;
+    }
+</style>
+
+<body>
+    <h1>Jquedđry</h1>
+    <button class="btn_1">Animation Img 1</button>
+
+    <img style="position: relative;" src="https://i.pinimg.com/236x/5c/96/25/5c9625957b5708ada9aaba9662bc4d83.jpg"
+        alt="">
+    <br>
+    <button class="btn_2">Box</button>
+    <div class="box"></div>
+</body>
+
+</html>
+<script>
+    var btn_1 = $(".btn_1");
+    btn_1.click(function () {
+        $("img").animate({
+            left: "200px",
+            top: "50px",
+            width: "50px",
+            opacity: "1"
+
+        }).animate({
+            left: "+=200px",
+
+            top: "0",
+            width: "50px",
+        }).animate({
+            opacity: "0.5"
+        })
+    })
+    var btn_2 = $(".btn_2")
+    btn_2.click(function () {
+        $(".box").animate({
+            width: "toggle",
+            height: "50px",
+        background: "#333"
+
+        })
+    })
+
+</script>

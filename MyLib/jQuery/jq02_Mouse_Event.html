@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+        button{
+            width: 100px;
+            height: 40px;
+            margin: 30px;
+        }
+        .bg-blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <button class="click">Click</button>
+    <button class="dblclick">Double Click</button>
+    <button class="hover">Hover</button>
+    <button class="MouseEnter">MouseEnter</button>
+</body>
+</html>
+<script>
+    // onclick
+    $(".click").click(function(){
+        $(this).css("background","blue")
+    })
+    // double click
+    $(".dblclick").dblclick(function(){
+        console.log("def")
+        $(this).css("background","blue")
+    })
+    // hover
+    $(".hover").hover(function(){
+        // js nature
+        this.classList.add("bg-blue")
+    },
+    function(){
+        // jQuery
+        $(this).removeClass("bg-blue")
+    }) 
+    // MouseEnter - mouseleave (hover)
+    $(".MouseEnter").mouseenter(function(){
+        $(this).addClass("bg-blue")
+    })
+    $(".MouseEnter").mouseleave(function(){
+        // $(this).removeClass("bg-blue")
+    })
+</script>

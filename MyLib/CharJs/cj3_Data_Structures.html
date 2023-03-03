@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="">==========</div>
+    <canvas id="canvas_2"></canvas>
+    <div class="">==========</div>
+    <canvas id="canvas_3"></canvas>
+    <div class="">==========</div>
+    <canvas id="canvas_4"></canvas>
+
+</body>
+
+</html>
+<script>
+    // Normal
+    const ctx = document.getElementById('canvas').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                data: [20, 10, 21, 23],
+            }],
+            labels: ['a', 'b', "c", "d"]
+        }
+    });
+    // Object
+    const ctx_2 = document.getElementById('canvas_2').getContext('2d');
+    const chart_2 = new Chart(ctx_2, {
+        type: 'line',
+        data: {
+            datasets: [{
+                data: [{ x: 'Sales', y: 20 }, { x: 'Revenue', y: 1000 }]
+
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+
+    });
+    // custom properties
+    const ctx_3 = document.getElementById('canvas_3').getContext('2d');
+    const chart_3 = new Chart(ctx_3, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [{ id: 'Sales', nested: { value: 1500 } }, { id: 'Purchases', nested: { value: 500 } }]
+            }]
+        },
+        options: {
+            parsing: {
+                key: 'nested.value'
+            }
+        }
+
+    });
+    // Parsing
+    const data = [{ x: 'Jan', net: 100, cogs: 50, gm: 50 }, { x: 'Feb', net: 120, cogs: 55, gm: 75 }];
+    const cfg = {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb'],
+            datasets: [{
+                label: 'Net sales',
+                data: data,
+                parsing: {
+                    yAxisKey: 'net'
+                },
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+            }, {
+                label: 'Cost of goods sold',
+                data: data,
+                parsing: {
+                    yAxisKey: 'cogs'
+                },
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+            }, {
+                label: 'Gross margin',
+                data: data,
+                parsing: {
+                    yAxisKey: 'gm'
+                },
+                backgroundColor : function(){
+                    return data[1].gm>50?"red":"blue"
+                }
+            }]
+        },
+    };
+    const ctx_4 = document.getElementById('canvas_4').getContext('2d');
+    const chart_4 = new Chart(ctx_4, cfg);
+</script>

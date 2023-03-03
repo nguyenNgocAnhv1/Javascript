@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>
+        <p>0</p>
+
+    </h1>
+
+</body>
+
+</html>
+<script>
+    var i = 0
+    $("h1").click(function () {
+        console.log(i);
+
+        var x = $("h1").html(`<p> I is: ${i++} </p>`)
+        console.log(i);
+        alert(i)
+    }
+    )
+</script>

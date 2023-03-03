@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Jquery</h1>
+</body>
+    <input type="text">
+    <p>Total key press: </p>
+    <span></span>
+</html>
+<script>
+    var i = 0
+    // Key: up, down, press
+    $("input").keypress(function(){
+        $("span").text(i++)
+    })
+    $("input").keyup(function(){
+      
+        $("span").text(i++)
+    })
+    $("input").keydown(function(){
+      
+        $("span").text(i++)
+    })
+</script>

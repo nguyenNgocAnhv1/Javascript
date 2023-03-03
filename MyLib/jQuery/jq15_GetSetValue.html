@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <button class="btn1">HTML</button>
+    <button class="btn2">PHP</button>
+    <button class="btn3">JS</button>
+    <input type="text">
+</body>
+
+</html>
+<script>
+    var i =0 
+    function changeText (btn){
+        btn = $(btn)
+
+        btn.click(function(){
+            $("input").val(btn.text()) 
+        })
+    
+      
+    }
+    changeText(".btn1")
+    changeText(".btn2")
+    changeText(".btn3")
+  
+   
+</script>

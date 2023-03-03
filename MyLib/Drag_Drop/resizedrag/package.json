@@ -1,0 +1,58 @@
+{
+  "_from": "resizedrag@^1.0.4",
+  "_id": "resizedrag@1.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-MHu3r2Qnp+7NwG8gB6lipkwY2zDg6a7cGiOYgZ0JZfCzB3bg2BQ4xR6gTfiHGz60Ec1Aa53SKNu0h1CtNiSSBw==",
+  "_location": "/resizedrag",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "resizedrag@^1.0.4",
+    "name": "resizedrag",
+    "escapedName": "resizedrag",
+    "rawSpec": "^1.0.4",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.4"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/resizedrag/-/resizedrag-1.0.4.tgz",
+  "_shasum": "8bab5a59b18e7752c09ca5accd43275bcb4d54f8",
+  "_spec": "resizedrag@^1.0.4",
+  "_where": "C:\\Users\\ngocanh",
+  "author": {
+    "name": "Murugappan.VR"
+  },
+  "bugs": {
+    "url": "https://github.com/MurugappanVR/resizedrag.js/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Tiny javascript library to make DOM elements movable & resizable",
+  "devDependencies": {
+    "uglify-js": "^3.13.9"
+  },
+  "homepage": "https://github.com/MurugappanVR/resizedrag.js#readme",
+  "keywords": [
+    "resize",
+    "draggable",
+    "resizable",
+    "drag",
+    "drag-and-drop",
+    "dom-manipulation"
+  ],
+  "license": "MIT",
+  "main": "resizedrag.min.js",
+  "name": "resizedrag",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurugappanVR/resizedrag.js.git"
+  },
+  "scripts": {
+    "build": "uglifyjs resizedrag.js -o resizedrag.min.js -c"
+  },
+  "version": "1.0.4"
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            position: fixed;
+            right: 0;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">Uả , J zậy tw</div>
+    <p ></p>
+
+    <h1 style="padding-bottom:1000px ;">Jquery</h1>
+</body>
+
+</html>
+<script>
+    $(window).resize(function(){
+       
+            $("p").text("Window width: " + $(window).width() + ", " + "Window height: " + $(window).height());
+    })
+    $(window).scroll(function(){
+       $("div").show().fadeOut("slow")
+})
+</script>

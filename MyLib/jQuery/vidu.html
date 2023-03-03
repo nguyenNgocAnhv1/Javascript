@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+        <li><a href="#0">Đồng bộ hóa quyền truy cập biến đổi dữ liệu được chia sẻ
+            </a></li>
+        <li><a href="#1">Tránh đồng bộ hóa quá mức
+            </a></li>
+        <li><a href="#2">Sử dụng executors, tasks thay cho các luồng
+            </a></li>
+        <li><a href="#3">Sử dụng các utilitiy lập trình đồng thời thay cho kĩ thuật wait - notify (đợi – thông báo)
+            </a></li>
+        <li><a href="#4">An toàn luồng
+            </a></li>
+        <li><a href="#5">Lazy Initialization (Khởi tạo lười biếng)
+            </a></li>
+        <li><a href="#6">Giảm sự phụ thuộc vào bộ lập trình luồng
+            </a></li>
+    </div>
+    <div id="main">
+        <div id="0" class="tab">
+            <h1>Đồng bộ hóa quyền truy cập biến đổi dữ liệu được chia sẻ
+            </h1>
+            <h2>1.1. Tại sao cần đồng bộ ?
+            </h2>
+            <p>Trên hệ thống nhiều CPU hoặc CPU đa nhân hay CPU hỗ trợ siêu phân luồng, các luồng sẽ thực sự hoạt động
+                song song tại cùng 1 thời điểm. Như vậy, nếu các luồng này cùng truy xuất đến 1 biến dữ liệu hoặc 1
+                phương thức điều này có thể gây ra việc sai lệch dữ liệu.
+            </p>
+            <p><strong>Ví dụ</strong> : Tại cùng 1 thời điểm có 2 luồng cùng lúc gọi phương thức tang() trên một đối
+                tượng thuộc lớp Counter :
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Cùng 1 lúc, 2 luồng cùng lấy ra được giá trị count hiện tại là 0, và cùng lúc cộng thêm 1 vào giá trị
+                count này thành 1, sau đó cùng ghi giá trị mới cộng lại được là 1 lên RAM. Sau khi 2 luồng thực hiện thì
+                count có giá trị 1. Nhưng thực chất, nếu 2 luồng cùng tăng giá trị count thì count nhận được phải có giá
+                trị là 2 (sai lệch dữ liệu).
+            </p>
+            <p>Bởi vậy chúng ta cần sắp xếp thứ tự truy suất đối tượng đó chính là đồng bộ hóa dữ liệu.
+            </p>
+            <h2>1.2. Đồng bộ hóa là gì ?
+            </h2>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Kết quả:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Sửa lại lớp rút tiền:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p> Kết quả:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <h2> 1.3. Sử dụng Volatile:
+            </h2>
+            <p>Biến volatile có tác dụng thông báo sự thay đổi giá trị của biến tới các luồng (thread) khác nhau nếu
+                biến này đang được sử dụng trong nhiều thread. Giả sử có 2 thread đang sử dụng giá trị của biến, thread
+                thứ nhất có tác dụng thay đổi giá trị của biến, còn thread thứ hai sẽ lắng nghe sự thay đổi và biến sẽ
+                được khai báo là biến volatile thì mỗi khi giá trị của biến thay đổi thì thread thứ hai sẽ tự động cập
+                nhật. Ví dụ:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p> Kết quả:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Thêm volatile vào khai báo biến:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p> Kết quả:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Hạn chế: Có thể xảy ra việc nhiều thread ghi vào biến volatile và sẽ dẫn đến giá trị sai vì chuyện đọc
+                ghi đồng thời giữa các thread. Vì thế, chỉ sử dụng volatile khi có hai thread trong đó 1 thread đọc và 1
+                thread ghi vào biến volatile còn các trường hợp khác cần sử dụng đến synchronized.
+            </p>
+            <h2>1.4. Sử dụng atomic
+            </h2>
+            <p>Tương tự như volatile, atomic cũng được dùng với mục đích thông báo và đảm bảo giá trị sẽ được đồng bộ.
+                Vì thế nên về cơ bản atomic có thể thay thế được cho volatile.
+            </p>
+            <p>Atomic sử dụng với các biến có giá trị dạng int, long, boolean và các đối tượng tương ứng.
+            </p>
+            <p>Ví dụ: Khi chưa sử dụng atomic, mỗi luồng tăng biến đếm lên 5 lần, vì vậy sau khi thực hiện hai luồng,
+                giá trị đếm kết thúc nhận được phải là 10.
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Sau khi sửa lại:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="1" class="tab">
+            <h1>Tránh đồng bộ hóa quá mức
+            </h1>
+            <p>Tùy thuộc vào tình huống, đồng bộ hóa quá mức có thể gây ra giảm hiệu suất, bế tắc hoặc thậm chí là hành
+                vi không xác định.
+            </p>
+            <p>Các bế tắc có thể xảy ra trong Java vì synchronized khiến luồng thực thi bị chặn trong khi chờ khóa hoặc
+                theo dõi, được liên kết với đối tượng được chỉ định.
+            </p>
+            <p>Ví dụ sau:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Hãy tưởng tượng rằng luồng A gọi oneMethod()trong khi luồng B đồng thời gọi anotherMethod(). Hãy tưởng
+                tượng xa hơn rằng luồng A có được khóa cacheLock và đồng thời, luồng B có được khóa trên tableLock. Bây
+                giờ các luồng bị khóa: không luồng nào sẽ từ bỏ khóa của nó cho đến khi nó có được khóa khác, nhưng cũng
+                không thể có được khóa khác cho đến khi luồng khác từ bỏ nó. Khi một chương trình Java bị deadlock, các
+                chuỗi deadlock chỉ đơn giản là đợi mãi mãi.
+            </p>
+            <p>Việc kiểm tra các deadlock rất khó, vì các deadlock phụ thuộc vào thời gian, tải và môi trường và do đó
+                có thể xảy ra không thường xuyên hoặc chỉ trong một số trường hợp nhất định.
+            </p>
+            <h2>2.1. Sử dụng CopyOnWriteArrayLish
+            </h2>
+            <p>CopyOnWriteArrayLish để di chuyển các lện gọi phương thức bên ngoài ra khỏi khối được đồng bộ hóa.
+                CopyOnWriteArrayLish là một biến thể an toàn theo luồng (thread-safe) của ArrayLish. Cũng giống như
+                ArrayLish, CopyOnWriteArray quản lý một mảng để lưu trữ các phần tử của nó, điều khác biệt là tất cả các
+                hoạt động gây đột biến như add, set, remove, clear,… đều tạo ra bản sao mới mà mảng nó đang quản lý.
+            </p>
+            <p>Chi phí để sử dụng CopyOnWriteArrayLish là rất đắt, bạn phải trả giá nhiều hơn cho tài nguyên và hiệu
+                suất. Bên cạnh đó hiệu xuất của nó khá tồi nên thường không hay được sử dụng.
+            </p>
+            <h2>2.2. Cách để tránh cho chương trình bị bế tắc
+            </h2>
+            <p>Bên trong 1 vùng được đồng bộ hóa, không gọi 1 phương thức để ghi đè hoặc 1 phương thức được cung cấp
+                dưới dạng function object
+            </p>
+            <p>Không bao giờ gọi 1 phương thức xa lạ từ bên trong 1 vùng được đồng bộ hóa( luôn giữ cho công việc làm từ
+                bên trong vùng được đồng bộ hóa ở mức tối thiểu)
+            </p>
+            <p>Không đồng bộ hóa quá mức
+            </p>
+            <p>Thu nhỏ các khối được đồng bộ hóa để tránh nhiều khóa
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="2" class="tab">
+            <h1>Sử dụng executors, tasks thay cho các luồng
+            </h1>
+            <p>Thread Ưu điểm và nhược điểm của đa luồng
+            </p>
+            <p>1. Ưu điểm
+            </p>
+            <p> - Không chặn người sử dụng vì các luồng là độc lập và bạn có thể thực hiện nhiều công việc cùng một lúc.
+            </p>
+            <p> - Mỗi luồng có thể dùng chung và chia sẻ nguồn tài nguyên trong quá trình chạy, nhưng có thể thực hiện
+                một cách độc lập.
+            </p>
+            <p>- Luồng là độc lập vì vậy nó không ảnh hưởng đến luồng khác nếu ngoại lệ xảy ra trong một luồng duy nhất.
+            </p>
+            <p>- Có thể thực hiện nhiều hoạt động với nhau để tiết kiệm thời gian.
+            </p>
+            <p>Ví dụ một ứng dụng có thể được tách thành : luồng chính chạy giao diện người dùng và các luồng phụ nhiệm
+                gửi kết quả xử lý đến luồng chính.
+            </p>
+            <p> 2. Nhược điểm
+            </p>
+            <p>- Càng nhiều luồng thì xử lý càng phức tạp.
+            </p>
+            <p> - Xử lý vấn đề về tranh chấp bộ nhớ, đồng bộ dữ liệu khá phức tạp.
+            </p>
+            <p> - Cần phát hiện tránh các luồng chết (dead lock), luồng chạy mà không làm gì trong ứng dụng cả.
+            </p>
+            <p>VD. Chương trình chỉ sử dụng Thread:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Sau khi chạy chương trình sẽ hiểu như sau:
+            </p>
+            <p>- Executor và ThreadPool giới hạn số lượng Thread đang thực hiện. Như code trên thì giới hạn số Thread
+                đang chạy là 5.
+            </p>
+            <p>- Vòng for trên tạo nên 100 Thread, mà giới hạn Thread là 5 nên cùng lúc chạy chỉ có 5 Thread. Còn những
+                Thread khác sẽ lần lượt được đưa vào Queue - Hàng đợi.
+            </p>
+            <p>- Khi chương trình muốn chạy các Thread khác thì phải dừng (kết thúc một cái Thread đang thực thi) thì
+                mới có thể đưa cái Thread kế tiếp đang trong Hàng đợi đi vào thực thi.
+            </p>
+            <p>=> Kết quả dùng Executors và Thread Pool đơn giản chỉ là giới hạn số lượng luồng công việc được thực thi
+                cùng lúc trong chương trình để tránh lãng phí bộ nhớ, giảm độ phức tạp, xử lý được các luồng chết (Nói
+                chung là khắc phục các nhược điểm của việc chỉ dùng mỗi Thread). Ngược lại đấy thì việc đưa các Thread
+                vào Queue sẽ làm tăng thời gian xử lý.
+            </p>
+            <p>Trong Java, khởi tạo một luồng sẽ chiếm một phần tài nguyên của hệ thống, bạn có thể tạo 1 hay 10 thread
+                mà không có vấn đề gì, nhưng khi số thread lên đến hàng trăm hay hàng nghìn thì sớm muộn sẽ dẫn đến cạn
+                kiệt tài nguyên, vả lại hiểu suất cũng không cao. Vì thế Thread Pool được sinh giúp chúng ta quản lý các
+                thread, ngăn chặn tối đa tình trạng này.
+            </p>
+            <p>Dưới đây là ví dụ có sử dụng executor và threadpool:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="3" class="tab">
+            <h1>Sử dụng các utilitiy lập trình đồng thời thay cho kĩ thuật wait - notify (đợi – thông báo)
+            </h1>
+            <p>wait() cho phép thread được loại ra khỏi danh sách thread đang hoạt động cho đến khi một thread gọi hàm
+                notify().
+            </p>
+            <p>notify() thông báo và kích hoạt trở lại thread đầu tiên gọi wait() trên cùng một đối tượng.
+            </p>
+            <p>Dưới đây là ví dụ về kĩ thuật wait – notify:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Một utility class là một class có thể được thiết kế để không liên quan gì đến object làm việc cụ thể.
+                Thay vào đó, nó tồn tại như một trình giữ chỗ cho các class field hoặc các class method.
+            </p>
+            <p>Utility Class hay còn được gọi là Helper class, là một class chỉ chứa static methods, nó không có trạng
+                thái và không thể khởi tạo. Nó chứa một cụm methods liên quan đến nhau, nên vì thế mà có thể được sử
+                dụng lại trên toàn ứng dụng.
+            </p>
+            <p>Kể từ bản Java 5, nền tảng này đã cung cấp các utility lập trình đồng thời cao cấp hơn so với những việc
+                thủ công khi sử dụng kĩ thuật wait - notify.
+            </p>
+            <p>Các utility cấp cao được cấp trong gói java.util.concurrent, chia làm ba mục: Executor Framework; các tập
+                hợp đồng thời; và đồng bộ hóa. Gói này chứa một set các lớp khiến cho lập trình đồng thời (đa luồng)
+                trong java trở nên dễ dàng hơn.
+            </p>
+            <p>Khi gói java.util.concurrent được thêm vào, một số tiện ích như phương pháp lớp Lock
+                lock()/unlock()/newCondition() hay các implements khác như ArrayBlockingQueue, DelayQueue,
+                LinkedBlockingQueue, PriorityBlockingQueue, SynchronousQueue đang được ưa chuộng hơn là wait - notify.
+            </p>
+            <p>Dưới đây là một ví dụ sử dụng lock() và unlock():
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="4" class="tab">
+            <h1>An toàn luồng
+            </h1>
+            <p>Thread Safety trong Java là một chủ đề rất quan trọng. Java cung cấp hỗ trợ môi trường đa luồng bằng cách
+                sử dụng Thread Java, chúng ta biết rằng nhiều luồng được tạo từ cùng một biến đối tượng chia sẻ dữ liệu
+                và điều này có thể dẫn đến sự không nhất quán dữ liệu khi các luồng được sử dụng để đọc và cập nhật dữ
+                liệu được chia sẻ
+            </p>
+            <p>Lý do cho sự không nhất quán dữ liệu là bởi vì việc cập nhật bất kỳ giá trị trường nào là một quá trình,
+                nó đòi hỏi ba bước; đầu tiên để đọc giá trị hiện tại, thứ hai để thực hiện các thao tác cần thiết để có
+                được giá trị cập nhật và thứ ba để gán giá trị cập nhật cho tham chiếu trường.
+            </p>
+            <p>Hãy kiểm tra điều này với một chương trình đơn giản trong đó nhiều luồng đang cập nhật dữ liệu được chia
+                sẻ.
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Trong chương trình vòng lặp ở trên, số lượng được tăng thêm 1 bốn lần và vì chúng ta có hai luồng, giá
+                trị của nó phải là 8 sau khi cả hai luồng thực hiện xong. Nhưng khi bạn sẽ chạy chương trình trên nhiều
+                lần, bạn sẽ thấy giá trị đếm thay đổi trong khoảng 6,7,8.
+            </p>
+            <p>Thread Safety trong java là quá trình làm cho chương trình của chúng ta an toàn để sử dụng trong môi
+                trường đa luồng, có nhiều cách khác nhau để chúng ta có thể làm cho luồng chương trình của mình an toàn.
+            </p>
+            <p>Danh sách sau đây tóm tắt các cấp độ của an toàn luồng. Nó không đầy đủ nhưng bao gồm các trường hợp phổ
+                biến:
+            </p>
+            <p>Đồng bộ hóa là công cụ sử dụng để chúng ta có thể đạt được sự an toàn của luồng, JVM đảm bảo rằng mã được
+                đồng bộ hóa sẽ chỉ được thực hiện bởi một luồng tại một thời điểm. <strong>Từ khóa
+                    synchronized</strong><strong> </strong>được sử dụng để tạo mã được đồng bộ hóa và bên trong nó sử
+                dụng các khóa trên Object hoặc Class để đảm bảo chỉ có một luồng đang thực thi mã được đồng bộ hóa.
+            </p>
+            <p>Tuy nhiên vẫn có thể dùng các cách khác như:
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="5" class="tab">
+            <h1>Lazy Initialization (Khởi tạo lười biếng)
+            </h1>
+            <p>Khởi tạo lười biếng là mô hình tạm dừng việc tạo một đối tượng hoặc quy trình cho đến khi cần thiết. Ý
+                tưởng đằng sau mô hình này là bạn có thể không bao giờ cần đối tượng và do đó bạn đã tiết kiệm được chi
+                phí khởi tạo. Lý do chính mà khởi tạo lười biếng được sử dụng là để tối ưu hóa. Việc sử dụng khác mà
+                khởi tạo lười biếng có là phá vỡ các phụ thuộc vòng tròn phức tạp trong mã của bạn.
+            </p>
+            <p>Vì khởi tạo lười biếng là một cách tối ưu hóa, nên lời khuyên là “đừng làm nó trừ khi bạn thực sự cần đến
+                nó”. Khởi tạo lười biếng là một con dao hai lưỡi. Nó làm giảm chi phí khởi tạo một class hoặc một
+                instance, tuy nhiên làm tăng chi phí để truy cập các trường được khởi tạo lười biếng. Khởi tạo lười
+                biếng trong một số trường hợp (giống như nhiều cách “tối ưu hóa”) thực chất có thể gây hại cho hiệu suất
+                tổng thể.
+            </p>
+            <p>Ví dụ về khởi tạo lười biếng:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Khi getField được gọi lần đầu tiên, nó sẽ đọc trường FieldHolder lần đầu tiên, sau đó khởi chạy class
+                FieldHolder. Cái hay là phương thức GetField không được đồng bộ hóa và chỉ thực hiện một quyền truy cập
+                trường, do đó, việc khởi tạo lười biếng sẽ thêm thực tế không có gì liên quan đến chi phí truy cập.
+            </p>
+            <p>
+            </p>
+        </div>
+        <div id="6" class="tab">
+            <h1>Giảm sự phụ thuộc vào bộ lập trình luồng
+            </h1>
+            <p>Khi nhiều luồng có thể chạy được, bộ lập trình luồng sẽ xác định những luồng nào được chạy và chạy trong
+                bao lâu.
+            </p>
+            <p>
+            </p>
+            <p>Bất kỳ hệ điều hành hợp lý nào cũng sẽ cố gắng xác định một cách công bằng, nhưng độ ưu tiên có thể khác
+                nhau. Do đó, các chương trình được viết tốt sẽ không phụ thuộc độ ưu tiên này. <strong>Bất kỳ chương
+                    trình nào đáp ứng trên bộ lập trình luồng về tính đúng đắn hoặc hiệu suất đều có khả năng không thể
+                    chạy được.</strong><strong>
+                </strong></p>
+            <p>Cách tốt nhất để viết một chương trình mạnh mẽ, nhanh chóng, linh hoạt là đảm bảo rằng số luồng trung
+                bình có thể chạy không lớn hơn đáng kể so với số lượng bộ xử lý.
+            </p>
+            <p>
+            </p>
+            <p>Điều này khiến bộ lập trình luồng có ít sự lựa chọn: nó chỉ chạy các luồng có thể chạy được cho đến khi
+                chúng không còn chạy được nữa. Hành vi của chương trình không thay đổi quá nhiều, ngay cả trong các
+                chính sách lập lịch chuỗi hoàn toàn khác nhau. Lưu ý rằng số lượng chuỗi có thể chạy không giống với
+                tổng số chuỗi, có thể cao hơn nhiều. Các chủ đề đang chờ không thể chạy được.
+            </p>
+            <p>Kỹ thuật chính để giữ số lượng các luồng có thể chạy ở mức thấp là để luồng thực hiện một số công việc
+                hữu ích, và sau đó đợi thêm.
+            </p>
+            <p>
+            </p>
+            <p>Như một ví dụ điển hình về những gì không nên làm, hãy xem xét việc thực hiện lại sai lầm này của
+                CountDownLatch:
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+            <p>Trên máy của tôi, SlowCountDownLatch chậm hơn CountDownLatch của Java khoảng 10 lần khi 1.000 luồng chờ
+                trên một chốt. Mặc dù ví dụ này có vẻ hơi xa vời, nhưng không có gì lạ khi thấy các hệ thống có một hoặc
+                nhiều luồng không thể chạy một cách không cần thiết. Hiệu suất và tính linh hoạt có thể bị ảnh hưởng.
+            </p>
+            <p>Khi đối mặt với một chương trình gần như không hoạt động vì một số luồng không được CPU dành đủ thời gian
+                so với những luồng khác,<strong> hãy đừng quá phụ thuộc gợi ý để "sửa chữa" chương trình bằng cách dùng
+                    các lệnh gọi tới Thread.yield.</strong>
+            </p>
+            <p>
+            </p>
+            <p>Bạn có thể thành công trong việc đưa chương trình hoạt động theo mốt, nhưng nó sẽ không thể chạy được.
+                Những gợi ý tương tự giúp cải thiện hiệu suất trên một lần triển khai JVM có thể làm cho nó tồi tệ hơn
+                trong một giây và không ảnh hưởng đến một phần ba. <strong>Thread.yield có ngữ nghĩa đáng chú
+                    ý</strong>. Một hướng giải quyết tốt hơn là tái cấu trúc ứng dụng để giảm số lượng các luồng có thể
+                chạy đồng thời.
+            </p>
+            <p>Một kỹ thuật liên quan, được áp dụng các cảnh báo tương tự, là điều chỉnh các ưu tiên của luồng.
+                <strong>Ưu tiên luồng là một trong những tính năng ít linh hoạt nhất của Java</strong>. Nó không phải là
+                không hợp lý khi điều chỉnh khả năng đáp ứng của một ứng dụng bằng cách điều chỉnh ít ưu tiên luồng,
+                nhưng nó hiếm khi cần thiết và không linh hoạt. Không hợp lý khi cố gắng giải quyết một vấn đề nghiêm
+                trọng thực tế bằng cách điều chỉnh các ưu tiên của luồng. Sự cố có thể quay trở lại cho đến khi bạn tìm
+                thấy và khắc phục được nguyên nhân cơ bản.
+            </p>
+            <p>Tóm lại, đừng phụ thuộc vào bộ lập trình luồng để chạy chương trình sao cho đúng . Chương trình kết quả
+                sẽ không mạnh mẽ cũng như không linh hoạt. Như một hệ quả tất yếu, không dựa vào Thread.yield hoặc các
+                ưu tiên của luồng. Những cơ sở này chỉ là gợi ý cho người lập lịch kế hoạch. Các ưu tiên của luồng có
+                thể được sử dụng một cách tiết kiệm để cải thiện hiệu suất của một chương trình đã hoạt động, nhưng
+                chúng sẽ không bao giờ được sử dụng để “sửa chữa” một chương trình hầu như không hoạt động.
+            </p>
+            <p>
+            </p>
+            <p>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

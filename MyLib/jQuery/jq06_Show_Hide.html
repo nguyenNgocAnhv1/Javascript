@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            position: fixed;
+            right: 0;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div">Uả , J zậy tw</div>
+    
+    <button class="show">Click to show</button>
+    <button class="hide">Click to hide</button>
+    <h1 style="padding-bottom:10020px ;">Jquery</h1>
+</body>
+
+</html>
+<script>
+   $(".show").click(function(event){
+        $(".div").show("slow", function(e){
+            // Code to be executed
+            alert("The show effect is completed.");
+
+            
+        });
+        
+    });
+    $(".hide").click(function(){
+        $(".div").hide(1500,function(){
+            alert("success")
+
+        })
+    })
+</script>

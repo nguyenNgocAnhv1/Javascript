@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Jquery</h1>
+    <button class="up">SlideUp</button>  
+    <button class="down">Slide Down</button>  
+    <button class="toggle">SlideToggle</button>  
+    
+    <p>Hello, My name is NgocAnmh</p>
+    <p>Hello, My name is NgocAnmh</p>
+</body>
+
+</html>
+<script>
+    $(".up").click(function(){
+        $("p").slideUp()
+    })
+    $(".down").click(function(){
+        $("p").slideDown()
+    })
+    $(".toggle").click(function(){
+        $("p").slideToggle(1000,function(){
+            // alert("Toggle ")
+        })
+    })
+</script>

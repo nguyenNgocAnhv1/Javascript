@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First jQuery Powered Web Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <style>
+        .box {
+            position: relative;
+            height: 200px;
+            width: 200px;
+            background: red;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Jquery</h1>
+    <button class="btn_1">Start</button>
+    <button class="btn_2">Stop</button>
+    <button class="btn_3">Rest</button>
+    <button>...</button>
+    <div class="box">
+        <img style="position: relative;" src="https://i.pinimg.com/236x/5c/96/25/5c9625957b5708ada9aaba9662bc4d83.jpg"
+        alt="">
+    </div>
+    <ul     >
+        <li>12345</li>
+        <li style="list-style: none;">12345</li>
+        <li>12345</li>
+    </ul>
+
+
+</body>
+
+</html>
+<script>
+    var box = $(".box")
+    $(".btn_1").click(function () {
+        box.animate({
+            right: 200,
+
+        }, 1000).animate({
+            top: 500,
+        }, 1500).animate({
+            right: 0,
+        })
+    })
+    $(".btn_2").click(function () {
+
+        box.stop(true, true)  // 1.true: stop all animate in  the list animate 2. specify wheter animate done immediately
+    })
+    $(".btn_3").click(function () {
+
+        box.animate({
+            top:0,
+            left:0,
+            right:0
+        })
+    })
+    box.hover(function(){
+        $("img").stop(true,true).fadeOut("slow")
+
+    },
+    function(){
+        $("img").stop(true,true).fadeIn("slow")
+
+
+    })
+</script>
